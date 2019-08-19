@@ -1,4 +1,4 @@
-var express=require("express")
+var express=require("express");
 const app=express();
 
 const path=require('path');
@@ -166,20 +166,24 @@ app.set("views", "./src/views");               //Not needed if this is the direc
 
 
 
-app.listen(1234,function(req,res){
-    console.log("server is running...");
+app.listen(process.env.PORT || 3000,()=>{
+    console.log("server is running on http://localhost:3000");
 });
 
 
-var booksrouter=require("./routes/booksrouter");
+var booksrouter=require("./routes/booksrouter");                    //books router
 app.use("/books",booksrouter);    
+
+
+var authorrouter=require("./routes/authorrouter");                    //author router
+app.use("/authors",authorrouter);    
 
 
 app.use(express.static(path.join(__dirname,"/public")));
 
 
 app.get("/", function(req,res){
-    res.render("index",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}]});
+    res.render("Books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books});
 });
 
  /* app.get("/books", function(req,res){
@@ -188,10 +192,10 @@ app.get("/", function(req,res){
 });  */
 
 
-app.get("/authors", function(req,res){
+/* app.get("/authors", function(req,res){
     console.log("Authors");
     res.render("Authors",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}]});
-}); 
+});  */
 
 
 
