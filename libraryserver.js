@@ -5,6 +5,134 @@ const path=require('path');
 
 
 
+var bodyparser=require('body-parser');
+app.use(bodyparser.urlencoded({extended:true}));
+
+
+
+
+
+
+/* app.post("/signup",function(req,res){
+    res.redirect("/books");
+}); */
+
+app.post("/signup", function(req,res){
+    var u1=new user();
+    console.log("new User");
+    u1.ID=req.body.uname;
+    u1.Name=req.body.name;
+    u1.password=req.body.password;
+    u1.Email=req.body.Email;
+    u1.Roll=req.body.Roll;
+    u1.save(function(err){
+        if(err)
+            throw err
+        else
+        res.redirect("/");
+    });
+  
+});
+
+
+
+
+
+
+
+
+
+
+app.set("view engine", "ejs");
+app.set("views", "./src/views");               //Not needed if this is the directry
+
+
+
+app.listen(process.env.PORT || 3000,()=>{
+    console.log("server is running on http://localhost:3000");
+});
+
+
+var booksrouter=require("./routes/booksrouter");                    //books router
+app.use("/books",booksrouter);    
+
+
+var userrouter=require("./routes/userrouter");                    //user router
+app.use("/user",userrouter);   
+
+var authorrouter=require("./routes/authorrouter");                    //author router
+app.use("/authors",authorrouter);    
+
+
+app.use(express.static(path.join(__dirname,"/public")));
+
+
+/* app.get("/", function(req,res){
+    res.render("Books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"},{link:"/login", ntitle:"Login"},{link:"/register", ntitle:"Signup"}],books:books});
+}); */
+
+app.get("/",function(req,res){
+    res.redirect("/user");
+});
+
+app.get("/register",function(req,res){
+    res.render("register");
+});
+app.post("/login",function(req,res){
+
+
+    user.find({ID:req.body.username,password:req.body.password},function(err,result){
+        if(err) throw err
+        else if(result.length==0)
+        {
+            res.redirect("/")
+        }
+        else{
+            res.redirect("/books")
+        }
+      
+    });
+    
+});
+
+
+ /* app.get("/books", function(req,res){
+    console.log("Books");
+    res.render("Books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books});
+});  */
+
+
+/* app.get("/authors", function(req,res){
+    console.log("Authors");
+    res.render("Authors",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}]});
+});  */
+
+
+
+/* app.get("/book/:id", function(req,res){
+    var id=req.params.id;
+    console.log(id);
+    res.render("singlebook",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books[id]});
+
+});  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -154,54 +282,3 @@ var books=[
 
 
 
-
-
-
-
-
-
-
-app.set("view engine", "ejs");
-app.set("views", "./src/views");               //Not needed if this is the directry
-
-
-
-app.listen(process.env.PORT || 3000,()=>{
-    console.log("server is running on http://localhost:3000");
-});
-
-
-var booksrouter=require("./routes/booksrouter");                    //books router
-app.use("/books",booksrouter);    
-
-
-var authorrouter=require("./routes/authorrouter");                    //author router
-app.use("/authors",authorrouter);    
-
-
-app.use(express.static(path.join(__dirname,"/public")));
-
-
-app.get("/", function(req,res){
-    res.render("Books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books});
-});
-
- /* app.get("/books", function(req,res){
-    console.log("Books");
-    res.render("Books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books});
-});  */
-
-
-/* app.get("/authors", function(req,res){
-    console.log("Authors");
-    res.render("Authors",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}]});
-});  */
-
-
-
-/* app.get("/book/:id", function(req,res){
-    var id=req.params.id;
-    console.log(id);
-    res.render("singlebook",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books[id]});
-
-});  */

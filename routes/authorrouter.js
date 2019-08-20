@@ -6,13 +6,37 @@ const router1=express.Router();
 module.exports=router1;
 
 
-router1.get("/", function(req,res){
-    console.log("Authors");
-    res.render("Authors",{ptitle:"Authors", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books});
+
+var mongoose = require('mongoose')
+var url = "mongodb://localhost/Library";
+var books = require("../model/library");
+mongoose.connect(url,function(err,res){
+    if(err) 
+    throw err;
+    else
+    console.log("database connected");
+
+
+
 });
 
 
 
+
+
+router1.get("/", function(req,res){
+    console.log("Authors");
+    books.find({},function(err,result){
+        if (err)
+            throw(err);
+        else
+            res.render("Authors",{ptitle:"Authors", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"},{link:"/", ntitle:"Logout"}],books:result});
+    console.log(result);
+}); 
+});
+
+
+/* 
 var books=[
     {
         "title":"Broad Band",
@@ -152,5 +176,5 @@ var books=[
         "category":"Fiction",
         "image":"https://images-na.ssl-images-amazon.com/images/I/51glzbT6iCL._SX304_BO1,204,203,200_.jpg"
     } 
-    ]
+    ] */
 

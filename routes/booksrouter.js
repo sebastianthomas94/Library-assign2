@@ -7,22 +7,68 @@ module.exports=router;
 
 
 
+var mongoose = require('mongoose')
+var url = "mongodb://localhost/Library";
+var books = require("../model/library");
+mongoose.connect(url,function(err,res){
+    if(err) 
+    throw err;
+    else
+    console.log("database connected to Books");
+
+
+
+});
+
+
+
 
 router.get("/", function(req,res){
-    console.log("Books");
-    res.render("Books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books});
+    //console.log("Books");
+    books.find({},function(err,result){
+        if (err)
+            throw(err);
+        else
+            res.render("books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"},{link:"/", ntitle:"Logout"}],books:result});
+    //console.log(result);
+}); 
 }); 
 
 router.get("/:id", function(req,res){
     var id=req.params.id;
     console.log(id);
-    res.render("singlebook",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"}],books:books[id]});
+    books.find({title: id},function(err,result){
+        if (err)
+            throw(err);
+        else
+            res.render("singlebook",{ptitle:"Book", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"},{link:"/", ntitle:"Logout"}],books:result});
+    //console.log(result);
+}); 
 
 }); 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 var books=[
     {
         "title":"Broad Band",
@@ -162,3 +208,4 @@ var books=[
     } 
     ]
 
+ */
