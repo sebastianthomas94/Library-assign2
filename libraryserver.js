@@ -21,7 +21,7 @@ app.post("/signup", function(req,res){
     var u1=new user();
     console.log("new User");
     u1.ID=req.body.uname;
-    u1.Name=req.body.name;
+    u1.Name=req.body.name;                                      //User LOgin
     u1.password=req.body.password;
     u1.Email=req.body.Email;
     u1.Roll=req.body.Roll;
@@ -33,6 +33,25 @@ app.post("/signup", function(req,res){
     });
   
 });
+
+
+app.post("/added", function(req,res){
+    var b1=new book();
+    console.log("new User");
+    b1.Name=req.body.title;
+    b1.author=req.body.author;
+    b1.category=req.body.genres;
+    b1.image=req.body.image;
+    b1.id=req.body.id;
+    b1.save(function(err){
+        if(err)
+            throw err
+        else
+        res.redirect("/");
+    });
+  
+});
+
 
 
 

@@ -85,39 +85,45 @@
       
       <div class="panel">
         <div class="panel-body">
-          
+          <form action="/added" method="POST">
           
               <center><h2>Add New Books</h2></center>
               <table class="table">
                   <tr>
                       <td><b> Title:</b></td>
                       <td>
-                          <input type="text" class="form-control" name="title" placeholder="Enter Book Title">
+                          <input type="text" class="form-control" name="title" placeholder="Enter Book Title" required>
                       </td>
                   </tr>
                   <tr>
                       <td><b>Author:</b> </td>
                       <td>
-                        <input type="text" class="form-control" name="author" placeholder="Enter Author Name">
+                        <input type="text" class="form-control" name="author" placeholder="Enter Author Name" required>
                       </td>
                   </tr>
                   <tr>
+                    <td><b>ID</b></td>
+                    <td>
+                        <input type="text" class="form-control" name="id" placeholder="Enter Book ID" required>
+                    </td>
+                </tr>
+                  <tr>
                       <td><b> Genres:</b></td>
                       <td>
-                        <input type="text" class="form-control" name="genres" placeholder="Enter Genres">
+                        <input type="text" class="form-control" name="genres" placeholder="Enter Genres" required>
                       </td>
                   </tr>
                   <tr>
                       <td><b> Image:</b></td>
                       <td>
-                        <input type="text" class="form-control" name="image" placeholder="Image Url">
+                        <input type="text" class="form-control" name="image" placeholder="Image Url" required>
                         </td>
                   </tr>
                   
               </table>
               <center><button type="submit" class="btn btn-success">Add Book</button></center>
           
-          
+            </form>
           <!--/stories-->
          
           
