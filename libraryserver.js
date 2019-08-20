@@ -78,7 +78,12 @@ app.get("/",function(req,res){
 app.get("/register",function(req,res){
     res.render("register");
 });
-app.post("/login",function(req,res){
+
+
+app.get("/addbooks",function(req,res){
+    res.render("addbooks",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"},{link:"/", ntitle:"Logout"}]});
+});
+/* app.post("/login",function(req,res){
 
 
     user.find({ID:req.body.username,password:req.body.password},function(err,result){
@@ -93,7 +98,7 @@ app.post("/login",function(req,res){
       
     });
     
-});
+}); */
 
 
  /* app.get("/books", function(req,res){

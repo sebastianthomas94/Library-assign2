@@ -29,7 +29,7 @@ router.get("/", function(req,res){
         if (err)
             throw(err);
         else
-            res.render("books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"},{link:"/", ntitle:"Logout"}],books:result});
+            res.render("books",{ptitle:"Library", nav:[{link:"/books", ntitle:"Books"},{link:"/authors", ntitle:"Authors"},{link:"/addbooks", ntitle:"Add Books"},{link:"/", ntitle:"Logout"}],books:result});
     //console.log(result);
 }); 
 }); 
@@ -46,6 +46,8 @@ router.get("/:id", function(req,res){
 }); 
 
 }); 
+
+
 
 
 

@@ -64,3 +64,8 @@ router2.post("/login",function(req,res){
 router2.get("/",function(req,res){
     res.render("login");
 });
+
+
+router2.get("/register",function(req,res){
+    res.render("register");
+});
