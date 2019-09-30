@@ -48,7 +48,19 @@ router.get("/:id", function(req,res){
 }); 
 
 
-
+router.get("/deletebook/:id",function(req,res){
+    books.deleteOne({id:req.params.id},function(err,result){
+        if (err) throw err;
+        else
+        {
+            books.find({},(err,result)=>{
+                if(err) throw err;
+                else
+                    res.redirect("/books")
+            })
+        }
+    })
+})
 
 
 
